@@ -1,4 +1,4 @@
-# react-native-photo-upload
+# react-native-photo-upload-with-launch-type-change
 
 ![screenshot](http://g.recordit.co/egzm6lL96l.gif)
 
@@ -100,6 +100,7 @@ check the docs of each library on how to link manually.
         console.log('Image base64 string: ', avatar)
       }
     }}
+    launchType="dialog"
   >
     <Image
       style={{
@@ -135,4 +136,5 @@ check the docs of each library on how to link manually.
  onRender | Function | fires after render
  onResizedImageUri | Function | fires when image resized is ready
  imagePickerProps | Object | Other props for react-native-image-picker 
+ launchType | String | Variants are: dialog, library and camera
 

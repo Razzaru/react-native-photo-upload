@@ -27,7 +27,8 @@ export default class PhotoUpload extends React.Component {
     onResponse: PropTypes.func, // on response exists!
     onRender: PropTypes.func, // after render
     onResizedImageUri: PropTypes.func, // when image resized is ready
-    imagePickerProps: PropTypes.object // react-native-image-picker props
+    imagePickerProps: PropTypes.object, // react-native-image-picker props
+    launchType: PropTypes.string
   }
 
   state = {
@@ -47,17 +48,24 @@ export default class PhotoUpload extends React.Component {
     ...this.props.imagePickerProps
   }
 
+  launchTypes = {
+    dialog: ImagePicker.showImagePicker,
+    library: ImagePicker.launchImageLibrary,
+    camera: ImagePicker.launchCamera
+  }
+
   openImagePicker = () => {
     this.setState({buttonDisabled: true})
     if (this.props.onStart) this.props.onStart()
 
+    const launchType = this.props.launchType ? this.launchTypes[this.props.launchType] : this.launchTypes.dialog;
+
     // get image from image picker
-    ImagePicker.showImagePicker(this.options, async response => {
+    launchType(this.options, async response => {
       this.setState({buttonDisabled: false})
 
       let rotation = 0 
       const {originalRotation} = response
-      
 
       if (this.props.onResponse) this.props.onResponse(response)
 
